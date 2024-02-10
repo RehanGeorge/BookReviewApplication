@@ -20,8 +20,8 @@ let books = {
   4: {
     author: "Unknown",
     title: "The Epic Of Gilgamesh",
-    reviews: {},
-    isbn: "12345",
+    reviews: { 1: "This is a great book!", 2: "I loved it!" },
+    isbn: "2341",
   },
   5: {
     author: "Unknown",
