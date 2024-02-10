@@ -2,6 +2,7 @@ const express = require("express");
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
+const axios = require("axios");
 const public_users = express.Router();
 
 const booksArray = Object.values(books);
@@ -53,6 +54,53 @@ public_users.get("/review/:isbn", function (req, res) {
   const isbn = req.params.isbn;
   const book = booksArray.find((book) => book.isbn === isbn);
   return res.send(JSON.stringify(book.reviews));
+});
+
+//Async routes
+
+//Task 10 - Async get all books
+public_users.get("/async/", async (req, res) => {
+  try {
+    const result = await axios.get("http://localhost:5000/");
+    return res.send(JSON.stringify(result.data));
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//Task 11 - Async get books based on ISBN
+public_users.get("/async/isbn/:isbn", async (req, res) => {
+  const isbn = req.params.isbn;
+  try {
+    const result = await axios.get(`http://localhost:5000/isbn/${isbn}`);
+    return res.send(JSON.stringify(result.data));
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//Task 12 - Async get books based on author
+public_users.get("/async/author/:author", async (req, res) => {
+  try {
+    const result = await axios.get(
+      `http://localhost:5000/author/${req.params.author}`
+    );
+    return res.send(JSON.stringify(result.data));
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//Task 13 - Async get books based on title
+public_users.get("/async/title/:title", async (req, res) => {
+  try {
+    const result = await axios.get(
+      `http://localhost:5000/title/${req.params.title}`
+    );
+    return res.send(JSON.stringify(result.data));
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 module.exports.general = public_users;
