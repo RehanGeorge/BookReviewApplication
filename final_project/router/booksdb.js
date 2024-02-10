@@ -15,7 +15,7 @@ let books = {
     author: "Dante Alighieri",
     title: "The Divine Comedy",
     reviews: {},
-    isbn: "12345",
+    isbn: "123",
   },
   4: {
     author: "Unknown",
